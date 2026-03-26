@@ -1,22 +1,28 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Outfit, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const poppins = Poppins({
+const outfit = Outfit({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"]
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"]
 });
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  userScalable: false,
+  maximumScale: 1,
+  userScalable: true,
 };
 
 export const metadata: Metadata = {
-  title: 'Voice Recording',
-  description: 'Simple and clean voice recording application',
+  title: 'Sound Search - Find Songs by Singing',
+  description: 'Find any song by singing the lyrics. Got a melody stuck in your head? Just hum it, sing it, or say the lyrics you remember.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -44,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased bg-zinc-950`}>
+      <body className={`${outfit.className} antialiased bg-black`}>
         {children}
         <Analytics />
       </body>

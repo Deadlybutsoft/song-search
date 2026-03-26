@@ -3,6 +3,17 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { AudioLines, Mic2, Music } from 'lucide-react';
+import { Instrument_Serif, Poppins } from 'next/font/google';
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400']
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700']
+});
 
 export function WelcomePage() {
   const router = useRouter();
@@ -12,49 +23,44 @@ export function WelcomePage() {
   };
 
   return (
-    <div className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center bg-zinc-950 font-sans text-zinc-100 selection:bg-purple-500/30 overflow-hidden">
+    <div className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center text-white bg-black font-sans selection:bg-purple-500/30 overflow-hidden px-4 py-6">
 
-      {/* Main Content Card */}
-      <div className="relative z-10 flex w-[90%] max-w-3xl flex-col items-center justify-center gap-10 text-center px-6 py-16 sm:py-24 rounded-[3rem] bg-zinc-900 border border-zinc-800 shadow-xl shadow-black/40">
+      {/* Main Content */}
+      <div className="relative z-10 w-full max-w-sm flex flex-col items-center text-center gap-6">
 
         {/* Main Central Icon */}
-        <div className="relative flex items-center justify-center h-28 w-28 rounded-full bg-zinc-950 shadow-inner border border-zinc-800 transition-transform duration-500 hover:scale-[1.03] gap-2">
-          <AudioLines className="h-8 w-8 text-purple-400" strokeWidth={2} />
-          <Music className="h-7 w-7 text-indigo-400" strokeWidth={2} />
+        <div className="relative flex items-center justify-center h-24 w-24 rounded-2xl bg-zinc-900/50 border border-zinc-800 transition-transform duration-500 hover:scale-[1.02]">
+          <div className="flex items-center gap-1.5">
+            <AudioLines className="h-7 w-7 text-purple-400" strokeWidth={2.5} />
+            <Music className="h-6 w-6 text-indigo-400" strokeWidth={2.5} />
+          </div>
         </div>
 
         {/* Heading & Subtext */}
-        <div className="space-y-6 max-w-2xl px-4 flex flex-col items-center">
-          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-zinc-800/40 border border-zinc-700/50 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
-            <span>1. Sing</span>
-            <span className="text-zinc-600">→</span>
-            <span>2. Search</span>
-            <span className="text-zinc-600">→</span>
-            <span className="text-purple-400">3. Find</span>
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-zinc-100 leading-tight">
-            Find any song by singing the lyrics
+        <div className="flex flex-col gap-3">
+          <h1 className={`font-extrabold tracking-tight text-white leading-tight ${instrumentSerif.className}`} style={{ fontSize: '67px' }}>
+            Find any song by singing its lyrics
           </h1>
-          <p className="text-lg sm:text-xl text-zinc-400 font-medium leading-relaxed max-w-xl mx-auto">
-            Got a melody stuck in your head? Just hum it, sing it, or say the lyrics you remember, and we'll instantly find the exact track for you.
+          <p className={`font-medium ${poppins.className}`} style={{ fontSize: '20px', lineHeight: '1.4', color: 'white' }}>
+            Got a melody stuck in your head? Just sing any part of the lyrics you remember and we'll instantly find the song for you.
           </p>
         </div>
 
         {/* Action Button */}
-        <div className="pt-4">
+        <div className="w-full flex flex-col" style={{ gap: '80px' }}>
+          <div className="h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent w-full shadow-[0_0_10px_rgba(168,85,247,0.4)]" />
           <Button
             onClick={handleStart}
             size="lg"
-            className="group relative h-16 rounded-full bg-zinc-100 px-10 text-lg font-bold text-zinc-900 transition-all duration-300 hover:scale-[1.02] hover:bg-white active:scale-[0.98] shadow-lg shadow-black/50"
+            className={`group relative h-14 rounded-2xl bg-black px-8 text-base font-bold text-white transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] hover:bg-white hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.1)] border-2 border-white/30 w-full ${poppins.className}`}
           >
-            <span className="relative z-10 flex items-center gap-2.5">
+            <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-black">
               Start Finding Now
-              <Mic2 className="w-5 h-5 text-zinc-900" />
+              <Mic2 className="w-5 h-5 text-white group-hover:text-black transition-colors" />
             </span>
           </Button>
         </div>
       </div>
-
     </div>
   );
 }
