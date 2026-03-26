@@ -60,7 +60,11 @@ export function MicrophonePage() {
       setIsSearching(false);
 
       if (data.songs && data.songs.length > 0) {
-        setSongResults(data.songs);
+        setSongResults(data.songs.slice(0, 2));
+        // Auto-stop session after the AI announces the song (give it 8 seconds to speak)
+        setTimeout(() => {
+          try { conversation.endSession(); } catch (_) { }
+        }, 8000);
       }
 
       const rawResult = data.result || data.error || "No results found.";
@@ -133,8 +137,11 @@ export function MicrophonePage() {
 
       <main className="flex-1 flex flex-col w-full px-3 py-4 gap-4">
 
-        {/* Microphone Panel - Top on mobile */}
-        <div className="w-full shrink-0 border border-zinc-800 bg-white rounded-2xl p-4 flex flex-col items-center justify-center relative">
+        {/* Microphone Panel - Top on mobile (entire box is clickable) */}
+        <div
+          onClick={handleMicClick}
+          className={`w-full shrink-0 border border-zinc-800 bg-white rounded-2xl p-4 flex flex-col items-center justify-center relative cursor-pointer transition-all duration-200 hover:bg-zinc-50 active:scale-[0.99] ${status === 'connecting' ? 'opacity-60 pointer-events-none' : ''}`}
+        >
           <div className="flex flex-col items-center justify-center w-full">
             <div className="relative flex items-center justify-center h-16 w-16 mb-2">
               {status === 'connected' && !isSpeaking && !isSearching && (
